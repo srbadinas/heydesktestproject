@@ -1,0 +1,35 @@
+﻿@model ChatViewModel
+
+@{
+    ViewData["Title"] = "Conversation";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">
+        @Model.Message
+    </div>
+}
+
+<div class="d-flex flex-column overflow-auto p-3 mb-3" id="conversation-messages" style="height: calc(100vh - 300px)">
+    @if (Model.Conversation != null)
+    {
+        foreach (var item in Model.Conversation.ConversationMessages)
+        {
+            <div class="alert alert-@Html.Raw(item.RecipientId != Model.LoggedInUser.Id ? "secondary" : "success")">
+                @item.Message
+            </div>
+        }
+    }
+    
+</div>
+
+<form class="d-flex" id="send-message-form">
+    <input type="hidden" id="send-message-conversation-id-field" value="@Model.Conversation.Id"/>
+    <input type="hidden" id="send-message-user-id-field" value="@Model.LoggedInUser.Id" />
+    <textarea id="send-message-field" class="form-control me-3" rows="4" disabled></textarea>
+    <button id="send-message-btn" class="btn btn-success" disabled>Send</button>
+</form>
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js" type="module"></script>
+<script src="~/js/chat.js" type="module"></script>

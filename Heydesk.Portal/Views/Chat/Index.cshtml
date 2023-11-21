@@ -1,0 +1,48 @@
+﻿@model ChatViewModel
+
+@{
+    ViewData["Title"] = "Conversations";
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-danger">
+        @Model.Message
+    </div>
+}
+
+@if (Model.Conversations == null || Model.Conversations.Count() == 0)
+{
+    <div class="alert alert-info">
+        No messages
+    </div>
+}
+else
+{
+    <ul class="list-unstyled">
+        @foreach (var item in Model.Conversations)
+        {
+            <li class="mb-3 pb-3" style="border-bottom: 1px solid #EFEFEF">
+                <a href="Chat/Conversation?conversationId=@item.Id" class=" text-decoration-none">
+                    <div class="d-flex align-items-center alert alert-secondary mb-0 " style="grid-column-gap: 1rem;">
+                        <div>
+                            <div class="text-white small p-2 rounded-circle bg-secondary">
+                                AI
+                            </div>
+                        </div>
+                        @if (item.ConversationMessages != null && item.ConversationMessages.Count() > 0)
+                        {
+                            <div class="">
+                                <p class="mb-0">@Html.Raw(item.ConversationMessages.OrderByDescending(c => c.CreatedDate).FirstOrDefault().Message.Length > 70 ? item.ConversationMessages.OrderByDescending(c => c.CreatedDate).FirstOrDefault().Message.Substring(0, 70) + "..." : item.ConversationMessages.OrderByDescending(c => c.CreatedDate).FirstOrDefault().Message)</p>
+                                <span>@item.CreatedDate.ToShortDateString()</span>
+                            </div>
+                        }
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+
+}
+
+<a class="w-100 btn btn-primary" asp-action="Conversation">Send a message</a>

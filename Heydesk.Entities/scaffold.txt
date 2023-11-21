@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Host=localhost;Port=5432;Database=Heydesk;Username=postgres;Password=12345" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models -Context HeydeskContext -Force
