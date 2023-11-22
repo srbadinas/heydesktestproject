@@ -24,12 +24,17 @@
     
 </div>
 
-<form class="d-flex" id="send-message-form">
-    <input type="hidden" id="send-message-conversation-id-field" value="@Model.Conversation.Id"/>
-    <input type="hidden" id="send-message-user-id-field" value="@Model.LoggedInUser.Id" />
-    <textarea id="send-message-field" class="form-control me-3" rows="4" disabled></textarea>
-    <button id="send-message-btn" class="btn btn-success" disabled>Send</button>
-</form>
+@if (Model.Conversation != null)
+{
+    <form class="d-flex" id="send-message-form">
+        <input type="hidden" id="send-message-conversation-id-field" value="@Model.Conversation.Id" />
+        <input type="hidden" id="send-message-user-id-field" value="@Model.LoggedInUser.Id" />
+        <textarea id="send-message-field" class="form-control me-3" rows="4" disabled></textarea>
+        <button id="send-message-btn" class="btn btn-success" disabled>Send</button>
+    </form>
 
-<script src="~/lib/microsoft/signalr/dist/browser/signalr.js" type="module"></script>
-<script src="~/js/chat.js" type="module"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js" type="module"></script>
+    <script src="~/js/chat.js" type="module"></script>
+}
+
+

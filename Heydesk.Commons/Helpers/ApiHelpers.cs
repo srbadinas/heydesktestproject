@@ -19,7 +19,6 @@ namespace Heydesk.Commons.Helpers
 
                 var request = new HttpRequestMessage(HttpMethod.Post, BaseUrl + url);
                 var jsonContent = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
-                jsonContent.Headers.ContentLength = Encoding.UTF8.GetByteCount(JsonSerializer.Serialize(data));
                 request.Content = jsonContent;
 
                 return await client.SendAsync(request);
